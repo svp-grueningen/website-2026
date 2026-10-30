@@ -1,0 +1,32 @@
+---
+layout: layouts/base.njk
+permalink: /termine/
+title: Termine & Anlässe
+untertitel: Kommende Veranstaltungen, Versammlungen und Standaktionen
+---
+{% include "page-header.njk" %}
+<section class="section">
+  <div class="container">
+    <div class="events-list">
+      {% for t in collections.termineKommend %}
+      <div class="event-item" data-datum="{{ t.date | isoDatum }}">
+        <div class="event-date"><span class="day">{{ t.date | tag }}</span><span class="month">{{ t.date | monatKurz }}</span></div>
+        <div class="event-body">
+          <h3>{{ t.data.title }}</h3>
+          <div class="event-meta">
+            <span>{{ t.date | datumLang }}</span>
+            {% if t.data.zeit %}<span>🕒 {{ t.data.zeit }}</span>{% endif %}
+            {% if t.data.ort %}<span>📍 {{ t.data.ort }}</span>{% endif %}
+            {% if t.data.publikum %}<span>👥 {{ t.data.publikum }}</span>{% endif %}
+          </div>
+          {% if t.content | trim %}<div class="event-text">{{ t.content | safe }}</div>{% endif %}
+        </div>
+        <span class="event-kat">{{ t.data.kategorie }}</span>
+      </div>
+      {% else %}
+      <p class="leer">Zurzeit sind keine Termine geplant.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% include "termine-script.njk" %}

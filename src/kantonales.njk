@@ -1,0 +1,24 @@
+---
+layout: layouts/base.njk
+permalink: /kantonales/
+title: Kantonale News
+bereich: Aktuell
+---
+{% set untertitel = kantonales.einleitung %}
+{% include "page-header.njk" %}
+<section class="section">
+  <div class="container container-narrow">
+    <div class="mini-news mini-news-gross">
+      {% for m in kantonales.meldungen %}
+      <a href="{{ m.link }}" class="mini-news-item" target="_blank" rel="noopener">
+        <div class="mini-news-img img-{{ ['dark','green','red'][loop.index0 % 3] }}"></div>
+        <div class="mini-news-body">
+          <h4>{{ m.titel }}</h4>
+          <div class="date">{{ m.datum | datumKurz }} · {{ m.quelle }}</div>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+    <p class="mehr-link">Weitere Meldungen: <a href="https://www.svp-zuerich.ch" target="_blank" rel="noopener">SVP Kanton Zürich</a> · <a href="https://www.svp-bezirk-hinwil.ch" target="_blank" rel="noopener">SVP Bezirk Hinwil</a></p>
+  </div>
+</section>

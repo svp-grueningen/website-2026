@@ -1,0 +1,15 @@
+<div class="team-card">
+  {% if p.foto %}<img class="team-photo team-photo-img" src="{{ p.foto }}" alt="{{ p.name }}" loading="lazy" />{% else %}<div class="team-photo" aria-hidden="true">{{ p.name | initialen }}</div>{% endif %}
+  <div class="team-body">
+    <div class="team-role">{{ p.funktion }}</div>
+    <div class="team-name">{{ p.name }}</div>
+    <div class="team-title">{{ p.aufgabe or p.gremium }}</div>
+  </div>
+  {% if p.email or p.telefon or p.link %}
+  <div class="team-contact">
+    {% if p.email %}<a href="mailto:{{ p.email }}" aria-label="E-Mail an {{ p.name }}">✉</a>{% endif %}
+    {% if p.telefon %}<a href="tel:{{ p.telefon | replace(' ', '') }}" aria-label="{{ p.name }} anrufen">☎</a>{% endif %}
+    {% if p.link %}<a href="{{ p.link }}" target="_blank" rel="noopener" aria-label="Mehr zu {{ p.name }}">↗</a>{% endif %}
+  </div>
+  {% endif %}
+</div>

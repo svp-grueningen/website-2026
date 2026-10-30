@@ -1,0 +1,65 @@
+---
+layout: layouts/base.njk
+permalink: /kontakt/
+title: Kontakt & Mitglied werden
+untertitel: Schreiben Sie uns – wir freuen uns auf Ihre Nachricht
+---
+{%- set e = einstellungen -%}
+{% include "page-header.njk" %}
+<section class="section">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>Sprechen Sie uns an</h3>
+        <p>Ob per Telefon, E-Mail oder bei einem unserer Anlässe – wir nehmen uns Zeit für Ihr Anliegen.</p>
+        <div class="contact-list">
+          {% if e.telefon %}<div class="contact-item"><div class="contact-icon">☎</div><div><strong>Telefon</strong><a href="tel:{{ e.telefon | replace(' ', '') }}">{{ e.telefon }}</a></div></div>{% endif %}
+          <div class="contact-item"><div class="contact-icon">✉</div><div><strong>E-Mail</strong><a href="mailto:{{ e.email }}">{{ e.email }}</a></div></div>
+          <div class="contact-item"><div class="contact-icon">⌂</div><div><strong>Adresse</strong><span>{{ e.adresse }}</span></div></div>
+          {% if e.erreichbarkeit %}<div class="contact-item"><div class="contact-icon">◷</div><div><strong>Erreichbarkeit</strong><span>{{ e.erreichbarkeit }}</span></div></div>{% endif %}
+        </div>
+        <div class="info-box">
+          <h3>Mitglied werden</h3>
+          <p>Werden Sie Teil der SVP Grüningen. Wählen Sie im Formular beim Betreff «Mitglied werden» und geben Sie Ihre Adresse an.</p>
+        </div>
+      </div>
+
+      <form class="contact-form" id="formular" name="kontakt" method="POST" action="/danke/" data-netlify="true" netlify-honeypot="bot-feld">
+        <h3>Nachricht senden</h3>
+        <input type="hidden" name="form-name" value="kontakt" />
+        <p class="versteckt"><label>Nicht ausfüllen: <input name="bot-feld" /></label></p>
+        <div class="form-row">
+          <div class="form-field"><label for="vorname">Vorname *</label><input id="vorname" name="vorname" required autocomplete="given-name" /></div>
+          <div class="form-field"><label for="nachname">Nachname *</label><input id="nachname" name="nachname" required autocomplete="family-name" /></div>
+        </div>
+        <div class="form-row">
+          <div class="form-field"><label for="email">E-Mail *</label><input id="email" type="email" name="email" required autocomplete="email" /></div>
+          <div class="form-field"><label for="telefon">Telefon</label><input id="telefon" type="tel" name="telefon" autocomplete="tel" /></div>
+        </div>
+        <div class="form-field"><label for="adresse">Adresse (bei Mitgliedschaftsanträgen)</label><input id="adresse" name="adresse" autocomplete="street-address" /></div>
+        <div class="form-field">
+          <label for="betreff">Betreff *</label>
+          <select id="betreff" name="betreff" required>
+            <option value="">Bitte wählen …</option>
+            <option value="allgemein">Allgemeine Anfrage</option>
+            <option value="mitglied">Mitglied werden</option>
+            <option value="spende">Spende</option>
+            <option value="medien">Medienanfrage</option>
+            <option value="anlass">Anlass / Termine</option>
+            <option value="sonstiges">Sonstiges</option>
+          </select>
+        </div>
+        <div class="form-field"><label for="nachricht">Ihre Nachricht *</label><textarea id="nachricht" name="nachricht" required></textarea></div>
+        <div class="form-field form-check"><label><input type="checkbox" name="datenschutz" required /> Ich habe die <a href="/datenschutz/" target="_blank">Datenschutzerklärung</a> gelesen. *</label></div>
+        <button type="submit" class="btn btn-green btn-lg form-submit">Nachricht senden</button>
+      </form>
+    </div>
+  </div>
+</section>
+<script>
+  // Betreff vorbelegen, z.B. /kontakt/?betreff=mitglied
+  (function () {
+    var b = new URLSearchParams(location.search).get('betreff');
+    if (b) { var s = document.getElementById('betreff'); if (s.querySelector('option[value="' + b + '"]')) s.value = b; }
+  })();
+</script>

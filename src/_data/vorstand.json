@@ -1,0 +1,9 @@
+{
+  "einleitung": "Engagierte Frauen und Männer aus Grüningen, die sich ehrenamtlich für unsere Sektion einsetzen.",
+  "mitglieder": [
+    { "name": "Marco Bosshard", "funktion": "Präsident", "aufgabe": "Vorstandsleitung", "email": "", "telefon": "", "foto": "" },
+    { "name": "Vorname Name", "funktion": "Vizepräsident/in", "aufgabe": "Stellvertretung", "email": "", "telefon": "", "foto": "" },
+    { "name": "Vorname Name", "funktion": "Kassier/in", "aufgabe": "Finanzen", "email": "", "telefon": "", "foto": "" },
+    { "name": "Vorname Name", "funktion": "Aktuar/in", "aufgabe": "Protokoll & Kommunikation", "email": "", "telefon": "", "foto": "" }
+  ]
+}

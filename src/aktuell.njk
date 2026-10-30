@@ -1,0 +1,47 @@
+---
+layout: layouts/base.njk
+permalink: /aktuell/
+title: Aktuell
+untertitel: News und Medienmitteilungen der SVP Grüningen
+---
+{% include "page-header.njk" %}
+<section class="section">
+  <div class="container">
+    <div class="filter-bar" role="group" aria-label="Nach Kategorie filtern">
+      <strong>Filter:</strong>
+      <button class="filter-chip active" data-filter="alle">Alle</button>
+      {% for k in ["Medienmitteilung", "Gemeindepolitik", "Anlass", "Standaktion", "Personelles"] %}
+      <button class="filter-chip" data-filter="{{ k }}">{{ k }}</button>
+      {% endfor %}
+    </div>
+    <div class="news-grid">
+      {% for n in collections.news %}
+      <article class="news-card" data-kategorie="{{ n.data.kategorie }}">
+        {% if n.data.bild %}<div class="news-card-img" style="background-image:url('{{ n.data.bild }}')">{% else %}<div class="news-card-img placeholder-{{ ['green','dark','red'][loop.index0 % 3] }}">{% endif %}
+          <span class="img-tag tag-green">{{ n.data.kategorie }}</span>
+        </div>
+        <div class="news-card-body">
+          <div class="news-card-meta">{{ n.date | datumLang }}</div>
+          <h3><a href="{{ n.url }}">{{ n.data.title }}</a></h3>
+          <p>{{ n.data.kurztext }}</p>
+          <a href="{{ n.url }}" class="news-card-link">Weiterlesen</a>
+        </div>
+      </article>
+      {% else %}
+      <p class="leer">Zurzeit keine Beiträge.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<script>
+  document.querySelectorAll('.filter-chip').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('.filter-chip').forEach(function (x) { x.classList.remove('active'); });
+      b.classList.add('active');
+      var f = b.getAttribute('data-filter');
+      document.querySelectorAll('.news-card').forEach(function (c) {
+        c.style.display = (f === 'alle' || c.getAttribute('data-kategorie') === f) ? '' : 'none';
+      });
+    });
+  });
+</script>

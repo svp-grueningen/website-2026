@@ -1,0 +1,20 @@
+{
+  "sektion": "SVP Grüningen",
+  "beschreibung": "Die SVP Grüningen setzt sich für eine lebenswerte, sichere und freie Gemeinde ein. Aktuelles, Parolen, Termine und Kontakt.",
+  "domain": "https://www.svp-grueningen.ch",
+  "email": "info@svp-grueningen.ch",
+  "telefon": "+41 76 584 89 09",
+  "adresse": "SVP Grüningen, 8627 Grüningen ZH",
+  "erreichbarkeit": "Mo – Fr, 18:00 – 20:00 Uhr oder nach Vereinbarung",
+  "instagram": "https://www.instagram.com/svp_grueningen/",
+  "facebook": "",
+  "hero_titel": "Herzlich Willkommen bei der SVP Grüningen",
+  "hero_untertitel": "Für Grüningen. Für die Schweiz.",
+  "hero_bild": "/assets/img/hero-grueningen.jpg",
+  "kacheln": [
+    { "titel": "Unsere Parolen", "button": "Zu den Parolen", "link": "/parolen/", "stil": "gruen" },
+    { "titel": "Mitmachen", "button": "Mitglied werden", "link": "/kontakt/#formular", "stil": "hell" }
+  ],
+  "mitmachen_titel": "Werden Sie Teil der SVP Grüningen",
+  "mitmachen_text": "Als Mitglied gestalten Sie mit: Sie wirken in unserer Sektion, profitieren vom Austausch mit Gleichgesinnten und stärken die bürgerliche Stimme in unserem Städtli."
+}

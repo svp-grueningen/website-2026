@@ -1,0 +1,35 @@
+---
+layout: layouts/base.njk
+bereich: Über uns
+pagination:
+  data: personenSeiten
+  size: 1
+  alias: s
+permalink: "/{{ s.slug }}/"
+eleventyComputed:
+  title: "{{ s.titel }}"
+personenSeiten:
+  - { slug: "vorstand", titel: "Unser Vorstand", quelle: "vorstand", liste: "mitglieder" }
+  - { slug: "volksvertreter", titel: "Volksvertreter", quelle: "volksvertreter", liste: "personen" }
+  - { slug: "mandatstraeger", titel: "Mandatsträger", quelle: "mandatstraeger", liste: "personen" }
+---
+{% if s.quelle == "vorstand" %}{% set daten = vorstand %}{% elif s.quelle == "volksvertreter" %}{% set daten = volksvertreter %}{% else %}{% set daten = mandatstraeger %}{% endif %}
+{% set untertitel = daten.einleitung %}
+{% include "page-header.njk" %}
+<section class="section">
+  <div class="container">
+    <div class="team-grid">
+      {% for p in daten[s.liste] %}
+        {% include "person-card.njk" %}
+      {% else %}
+        <p class="leer">Noch keine Einträge erfasst.</p>
+      {% endfor %}
+    </div>
+    {% if s.slug == "vorstand" %}
+    <div class="info-box">
+      <h3>Wir suchen Verstärkung!</h3>
+      <p>Sie interessieren sich für Gemeindepolitik und möchten aktiv mitwirken? Der Vorstand freut sich über engagierte Mitglieder. <a href="/kontakt/?betreff=mitglied#formular"><strong>Jetzt Kontakt aufnehmen →</strong></a></p>
+    </div>
+    {% endif %}
+  </div>
+</section>

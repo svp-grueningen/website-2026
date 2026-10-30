@@ -1,0 +1,9 @@
+{
+  "einleitung": "Ausgewählte Meldungen der SVP Bezirk Hinwil und der SVP Kanton Zürich.",
+  "meldungen": [
+    { "titel": "Kantonsräte wollen Antworten – Anfrage zum GZO", "datum": "2026-02-25", "quelle": "SVP Bezirk Hinwil", "link": "https://www.svp-bezirk-hinwil.ch" },
+    { "titel": "SVP-Arena in Wetzikon: Zwei Vorlagen, klare Ansagen", "datum": "2025-10-31", "quelle": "SVP Bezirk Hinwil", "link": "https://www.svp-bezirk-hinwil.ch" },
+    { "titel": "Heimspiel an der Zürcher Oberland Messe", "datum": "2025-09-11", "quelle": "SVP Bezirk Hinwil", "link": "https://www.svp-bezirk-hinwil.ch" },
+    { "titel": "SVP Bezirk Hinwil gibt Startschuss für die Gemeinden", "datum": "2025-03-17", "quelle": "SVP Bezirk Hinwil", "link": "https://www.svp-bezirk-hinwil.ch" }
+  ]
+}

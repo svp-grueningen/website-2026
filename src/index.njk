@@ -1,0 +1,92 @@
+---
+layout: layouts/base.njk
+permalink: /
+---
+{%- set e = einstellungen -%}
+<section class="hero-hinwil">
+  <div class="hero-hinwil-inner">
+    <img src="{{ e.hero_bild }}" alt="Grüningen" fetchpriority="high" />
+    <div class="hero-hinwil-text">
+      <h1>{{ e.hero_titel }}</h1>
+      <p>{{ e.hero_untertitel }}</p>
+    </div>
+    <img class="hero-hinwil-wappen" src="/assets/img/wappen-grueningen.png" alt="Wappen Grüningen" />
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="content-sidebar">
+      <div class="content-main">
+        <h2 class="col-title">Das Wichtigste auf einen Blick</h2>
+        <div class="feature-tiles">
+          {% for k in e.kacheln %}
+          <a href="{{ k.link }}" class="feature-tile {% if k.stil == 'hell' %}tile-light{% else %}tile-green{% endif %}">
+            <h3>{{ k.titel }}</h3>
+            <span class="tile-btn">{{ k.button or "Mehr erfahren" }}</span>
+          </a>
+          {% endfor %}
+        </div>
+
+        <h2 class="col-title col-title-spaced">Medienmitteilungen</h2>
+        <div class="media-list">
+          {% for n in collections.news | limit(3) %}
+          <article class="media-item">
+            {% if n.data.bild %}<div class="media-item-img" style="background-image:url('{{ n.data.bild }}')"></div>{% else %}<div class="media-item-img img-{{ ['dark','green','red'][loop.index0 % 3] }}"></div>{% endif %}
+            <div class="media-item-body">
+              <h3><a href="{{ n.url }}">{{ n.data.title }}</a></h3>
+              <div class="media-item-date">{{ n.date | datumLang }} · {{ n.data.kategorie }}</div>
+              <p>{{ n.data.kurztext }}</p>
+            </div>
+          </article>
+          {% else %}
+          <p class="leer">Zurzeit keine Beiträge.</p>
+          {% endfor %}
+        </div>
+        <p class="mehr-link"><a href="/aktuell/" class="news-card-link">Alle Beiträge</a></p>
+      </div>
+
+      <aside class="sidebar">
+        <h2 class="col-title">Nächste Termine</h2>
+        <div class="mini-news">
+          {% for t in collections.termineKommend | limit(3) %}
+          <a href="/termine/" class="mini-news-item" data-datum="{{ t.date | isoDatum }}">
+            <div class="mini-date"><span>{{ t.date | tag }}</span>{{ t.date | monatKurz }}</div>
+            <div class="mini-news-body">
+              <h4>{{ t.data.title }}</h4>
+              <div class="date">{{ t.data.zeit }}{% if t.data.zeit and t.data.ort %} · {% endif %}{{ t.data.ort }}</div>
+            </div>
+          </a>
+          {% else %}
+          <p class="leer">Zurzeit keine Termine.</p>
+          {% endfor %}
+        </div>
+
+        <h2 class="col-title col-title-spaced">Kantonales</h2>
+        <div class="mini-news">
+          {% for m in kantonales.meldungen | limit(5) %}
+          <a href="{{ m.link }}" class="mini-news-item" target="_blank" rel="noopener">
+            <div class="mini-news-img img-{{ ['dark','green','red'][loop.index0 % 3] }}"></div>
+            <div class="mini-news-body">
+              <h4>{{ m.titel }}</h4>
+              <div class="date">{{ m.datum | datumKurz }} · {{ m.quelle }}</div>
+            </div>
+          </a>
+          {% endfor %}
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" id="mitmachen">
+  <div class="container center">
+    <h2 class="section-title">{{ e.mitmachen_titel }}</h2>
+    <p class="section-sub section-sub-spaced">{{ e.mitmachen_text }}</p>
+    <div class="btn-row">
+      <a href="/kontakt/?betreff=mitglied#formular" class="btn btn-green btn-lg">Jetzt Mitglied werden</a>
+      <a href="/kontakt/" class="btn btn-outline-green btn-lg">Kontakt aufnehmen</a>
+    </div>
+  </div>
+</section>
+{% include "termine-script.njk" %}

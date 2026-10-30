@@ -1,0 +1,21 @@
+---
+layout: layouts/base.njk
+bereich: "Aktuell"
+---
+<section class="page-header page-header-artikel">
+  <div class="container">
+    <div class="breadcrumb"><a href="/">Startseite</a> &nbsp;›&nbsp; <a href="/aktuell/">Aktuell</a></div>
+    <div class="artikel-meta">{{ page.date | datumLang }} · {{ kategorie }}</div>
+    <h1>{{ title }}</h1>
+  </div>
+</section>
+<section class="section">
+  <div class="container container-narrow">
+    {% if bild %}<img class="artikel-bild" src="{{ bild }}" alt="" />{% endif %}
+    {% if kurztext %}<p class="artikel-lead">{{ kurztext }}</p>{% endif %}
+    <div class="prose">
+      {{ content | safe }}
+    </div>
+    <p class="artikel-zurueck"><a href="/aktuell/" class="news-card-link">Alle Beiträge</a></p>
+  </div>
+</section>

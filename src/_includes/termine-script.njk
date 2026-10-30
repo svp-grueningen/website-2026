@@ -1,0 +1,9 @@
+<script>
+  // Blendet Termine aus, die seit dem letzten Aufbau der Seite vorbei sind.
+  (function () {
+    var heute = new Date().toISOString().slice(0, 10);
+    document.querySelectorAll('[data-datum]').forEach(function (el) {
+      if (el.getAttribute('data-datum') < heute) el.remove();
+    });
+  })();
+</script>

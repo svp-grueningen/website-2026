@@ -1,0 +1,32 @@
+---
+layout: layouts/base.njk
+permalink: /parolen/
+title: Parolen
+bereich: Aktuell
+untertitel: Unsere Abstimmungsempfehlungen
+---
+{% include "page-header.njk" %}
+<section class="section">
+  <div class="container container-narrow">
+    {% for a in collections.parolen %}
+    <article class="parolen-block{% if not loop.first %} parolen-alt{% endif %}">
+      <h2>{{ a.data.title }}</h2>
+      {% if a.content | trim %}<div class="prose">{{ a.content | safe }}</div>{% endif %}
+      {% for ebene in ["Eidgenössisch", "Kantonal", "Kommunal"] %}
+        {% set liste = a.data.vorlagen | nachEbene(ebene) %}
+        {% if liste.length %}
+        <h3 class="parolen-ebene">{{ ebene }}{% if ebene == "Kantonal" %} Zürich{% elif ebene == "Kommunal" %} Grüningen{% endif %}</h3>
+        <ul class="parolen-liste">
+          {% for v in liste %}
+          <li><span class="parolen-titel">{{ v.titel }}</span><span class="parole {{ v.parole | paroleKlasse }}">{{ v.parole }}</span></li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      {% endfor %}
+      {% if a.data.grafik %}<p class="parolen-download"><a class="btn btn-outline-green" href="{{ a.data.grafik }}" download>Parolen-Grafik herunterladen</a></p>{% endif %}
+    </article>
+    {% else %}
+    <p class="leer">Zurzeit sind keine Parolen erfasst.</p>
+    {% endfor %}
+  </div>
+</section>

@@ -1,0 +1,124 @@
+{%- set e = einstellungen -%}
+<!DOCTYPE html>
+<html lang="de-CH">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% if title and page.url != "/" %}{{ title }} – {% endif %}{{ e.sektion }}</title>
+  <meta name="description" content="{{ kurztext or untertitel or e.beschreibung }}" />
+  <link rel="icon" type="image/png" href="/assets/img/wappen-grueningen.png" />
+  <link rel="preload" href="/assets/fonts/roboto-condensed-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+  <meta property="og:title" content="{{ title or e.sektion }}" />
+  <meta property="og:description" content="{{ kurztext or e.beschreibung }}" />
+  <meta property="og:image" content="{{ e.domain }}{{ bild or e.hero_bild }}" />
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="container">
+      <div class="topbar-left"></div>
+      <a href="/" class="topbar-title">
+        <img class="mini-wappen" src="/assets/img/wappen-grueningen.png" alt="" />
+        <span>SVP Grüningen</span>
+      </a>
+      <div class="topbar-right">
+        <a href="/kontakt/" class="kontakt-link">Kontakt</a>
+        <div class="topbar-social">
+          {% if e.instagram %}<a href="{{ e.instagram }}" target="_blank" rel="noopener" aria-label="Instagram">{% include "icon-instagram.njk" %}</a>{% endif %}
+          {% if e.facebook %}<a href="{{ e.facebook }}" target="_blank" rel="noopener" aria-label="Facebook">{% include "icon-facebook.njk" %}</a>{% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/" class="logo"><img src="/assets/img/svp-logo.webp" alt="SVP – Schweizerische Volkspartei" width="160" height="68" /></a>
+      <nav class="main-nav" id="mainNav" aria-label="Hauptmenü">
+        <ul>
+          <li class="has-sub">
+            <a href="/aktuell/" {% if page.url.startsWith("/aktuell") or page.url == "/parolen/" or page.url == "/kantonales/" %}class="active"{% endif %}>Aktuell</a>
+            <div class="mega-menu">
+              <div class="mega-menu-inner cols-3">
+                <a href="/aktuell/">Medienmitteilungen</a>
+                <a href="/parolen/">Parolen</a>
+                <a href="/kantonales/">Kantonale News</a>
+              </div>
+              <div class="mega-menu-title">Aktuell</div>
+            </div>
+          </li>
+          <li><a href="/termine/" {% if page.url == "/termine/" %}class="active"{% endif %}>Termine</a></li>
+          <li class="has-sub">
+            <a href="/vorstand/" {% if page.url in ["/vorstand/", "/volksvertreter/", "/mandatstraeger/", "/parteiprogramm/"] %}class="active"{% endif %}>Über uns</a>
+            <div class="mega-menu">
+              <div class="mega-menu-inner">
+                <a href="/volksvertreter/">Volksvertreter</a>
+                <a href="/vorstand/">Unser Vorstand</a>
+                <a href="/mandatstraeger/">Mandatsträger</a>
+                <a href="/parteiprogramm/">Parteiprogramm</a>
+              </div>
+              <div class="mega-menu-title">Über uns</div>
+            </div>
+          </li>
+          <li class="nav-mobile-only"><a href="/kontakt/">Kontakt</a></li>
+        </ul>
+      </nav>
+      <a href="/kontakt/#formular" class="btn btn-green btn-mitmachen">Mitmachen</a>
+      <button class="hamburger" aria-label="Menü öffnen" aria-controls="mainNav" aria-expanded="false" onclick="var n=document.getElementById('mainNav');var o=n.classList.toggle('open');this.setAttribute('aria-expanded',o)">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    {{ content | safe }}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>Links</h4>
+          <ul>
+            <li><a href="https://www.svp-bezirk-hinwil.ch" target="_blank" rel="noopener">SVP Bezirk Hinwil</a></li>
+            <li><a href="https://www.svp-zuerich.ch" target="_blank" rel="noopener">SVP Kanton Zürich</a></li>
+            <li><a href="https://www.svp.ch" target="_blank" rel="noopener">SVP Schweiz</a></li>
+            <li class="spacer"></li>
+            <li><a href="https://www.jsvp-zh.ch" target="_blank" rel="noopener">Junge SVP Kanton Zürich</a></li>
+            <li><a href="https://www.jsvp.ch" target="_blank" rel="noopener">Junge SVP Schweiz</a></li>
+          </ul>
+        </div>
+        <div class="footer-col footer-contact">
+          <h4>Kontakt</h4>
+          <span class="label">E-Mail</span>
+          <a href="mailto:{{ e.email }}">{{ e.email }}</a>
+          {% if e.telefon %}
+          <div class="spacer"></div>
+          <span class="label">Telefon</span>
+          <a href="tel:{{ e.telefon | replace(' ', '') }}">{{ e.telefon }}</a>
+          {% endif %}
+        </div>
+        <div class="footer-col footer-social-wrap">
+          <h4>Social Media</h4>
+          <p class="hint">Besuchen Sie uns bei:</p>
+          <div class="footer-social">
+            {% if e.instagram %}<a href="{{ e.instagram }}" target="_blank" rel="noopener" aria-label="Instagram">{% include "icon-instagram.njk" %}</a>{% endif %}
+            {% if e.facebook %}<a href="{{ e.facebook }}" target="_blank" rel="noopener" aria-label="Facebook">{% include "icon-facebook.njk" %}</a>{% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bar">
+      <div class="container">
+        <div>© {{ "" | jahr }} {{ e.sektion }}</div>
+        <div class="footer-bar-links">
+          <a href="/impressum/">Impressum</a>
+          <a href="/datenschutz/">Datenschutz</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
