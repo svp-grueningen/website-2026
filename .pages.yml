@@ -1,0 +1,218 @@
+# Pages CMS – Bearbeitungsmasken für die Website der SVP Grüningen
+# Anmelden unter https://app.pagescms.org mit dem GitHub-Konto, Repository auswählen.
+
+media:
+  input: src/assets/uploads
+  output: /assets/uploads
+
+content:
+  # ---------------------------------------------------------------
+  - name: news
+    label: News & Medienmitteilungen
+    type: collection
+    path: src/news
+    filename: "{year}-{month}-{day}-{primary}.md"
+    view:
+      fields: [title, date, kategorie, veroeffentlicht]
+      primary: title
+      sort: [date, title]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - { name: title, label: Titel, type: string, required: true }
+      - { name: date, label: Datum, type: date, required: true }
+      - name: kategorie
+        label: Kategorie
+        type: select
+        required: true
+        options:
+          values: [Medienmitteilung, Gemeindepolitik, Anlass, Standaktion, Personelles]
+      - { name: kurztext, label: "Kurztext (Vorschau, 1–2 Sätze)", type: text, required: true }
+      - { name: bild, label: "Bild (optional)", type: image }
+      - { name: veroeffentlicht, label: Veröffentlicht, type: boolean, default: true }
+      - { name: body, label: Text, type: rich-text }
+
+  # ---------------------------------------------------------------
+  - name: termine
+    label: Termine
+    type: collection
+    path: src/termine
+    filename: "{year}-{month}-{day}-{primary}.md"
+    view:
+      fields: [title, date, ort]
+      primary: title
+      default:
+        sort: date
+        order: desc
+    fields:
+      - { name: title, label: Titel, type: string, required: true }
+      - { name: date, label: Datum, type: date, required: true }
+      - { name: zeit, label: "Zeit (z.B. 19:30 Uhr)", type: string }
+      - { name: ort, label: Ort, type: string }
+      - name: kategorie
+        label: Kategorie
+        type: select
+        options:
+          values: [Parteianlass, Abstimmung, Wahlen, Standaktion, Sitzung]
+      - { name: publikum, label: "Für wen (z.B. Öffentlich, Mitglieder)", type: string }
+      - { name: veroeffentlicht, label: Veröffentlicht, type: boolean, default: true }
+      - { name: body, label: "Beschreibung (optional)", type: rich-text }
+
+  # ---------------------------------------------------------------
+  - name: parolen
+    label: Parolen
+    type: collection
+    path: src/parolen
+    filename: "{year}-{month}-{day}.md"
+    view:
+      fields: [title, date]
+      primary: title
+      default:
+        sort: date
+        order: desc
+    fields:
+      - { name: title, label: "Titel (z.B. Abstimmung vom 14. Juni 2026)", type: string, required: true }
+      - { name: date, label: Abstimmungsdatum, type: date, required: true }
+      - name: vorlagen
+        label: Vorlagen
+        type: object
+        list: true
+        fields:
+          - name: ebene
+            label: Ebene
+            type: select
+            options:
+              values: [Eidgenössisch, Kantonal, Kommunal]
+          - { name: titel, label: Vorlage, type: string }
+          - { name: parole, label: "Parole (JA, NEIN, Stimmfreigabe, NEIN / JA)", type: string }
+      - { name: grafik, label: "Parolen-Grafik zum Herunterladen (optional)", type: file }
+      - { name: veroeffentlicht, label: Veröffentlicht, type: boolean, default: true }
+      - { name: body, label: "Einleitung (optional)", type: rich-text }
+
+  # ---------------------------------------------------------------
+  - name: vorstand
+    label: Vorstand
+    type: file
+    path: src/_data/vorstand.json
+    fields:
+      - { name: einleitung, label: Einleitungstext, type: text }
+      - name: mitglieder
+        label: Mitglieder
+        type: object
+        list: true
+        fields:
+          - { name: name, label: Name, type: string }
+          - { name: funktion, label: "Funktion (z.B. Präsident)", type: string }
+          - { name: aufgabe, label: "Aufgabe (z.B. Finanzen)", type: string }
+          - { name: email, label: "E-Mail (optional)", type: string }
+          - { name: telefon, label: "Telefon (optional)", type: string }
+          - { name: foto, label: "Foto (quadratisch, optional)", type: image }
+
+  - name: volksvertreter
+    label: Volksvertreter
+    type: file
+    path: src/_data/volksvertreter.json
+    fields:
+      - { name: einleitung, label: Einleitungstext, type: text }
+      - name: personen
+        label: Personen
+        type: object
+        list: true
+        fields:
+          - { name: name, label: Name, type: string }
+          - { name: funktion, label: "Funktion (z.B. Kantonsrat)", type: string }
+          - { name: gremium, label: Gremium, type: string }
+          - name: ebene
+            label: Ebene
+            type: select
+            options:
+              values: [Bund, Kanton, Bezirk]
+          - { name: link, label: "Link (optional)", type: string }
+          - { name: foto, label: "Foto (optional)", type: image }
+
+  - name: mandatstraeger
+    label: Mandatsträger
+    type: file
+    path: src/_data/mandatstraeger.json
+    fields:
+      - { name: einleitung, label: Einleitungstext, type: text }
+      - name: personen
+        label: Personen
+        type: object
+        list: true
+        fields:
+          - { name: name, label: Name, type: string }
+          - { name: funktion, label: "Funktion (z.B. Gemeinderat)", type: string }
+          - { name: gremium, label: "Gremium (z.B. RPK Grüningen)", type: string }
+          - name: ebene
+            label: Ebene
+            type: select
+            options:
+              values: [Gemeinde, Bezirk]
+          - { name: link, label: "Link (optional)", type: string }
+          - { name: foto, label: "Foto (optional)", type: image }
+
+  # ---------------------------------------------------------------
+  - name: kantonales
+    label: Kantonale News
+    type: file
+    path: src/_data/kantonales.json
+    fields:
+      - { name: einleitung, label: Einleitungstext, type: text }
+      - name: meldungen
+        label: Meldungen (neueste zuoberst)
+        type: object
+        list: true
+        fields:
+          - { name: titel, label: Titel, type: string }
+          - { name: datum, label: Datum, type: date }
+          - { name: quelle, label: "Quelle (z.B. SVP Kanton Zürich)", type: string }
+          - { name: link, label: Link zur Meldung, type: string }
+
+  # ---------------------------------------------------------------
+  - name: seiten
+    label: Textseiten (Parteiprogramm, Impressum, Datenschutz)
+    type: collection
+    path: src/seiten
+    view:
+      fields: [title]
+    fields:
+      - { name: title, label: Titel, type: string, required: true }
+      - { name: untertitel, label: "Untertitel (optional)", type: string }
+      - { name: bereich, label: "Menübereich (nur Parteiprogramm: Über uns)", type: string }
+      - { name: body, label: Text, type: rich-text }
+
+  # ---------------------------------------------------------------
+  - name: einstellungen
+    label: Startseite & Kontaktdaten
+    type: file
+    path: src/_data/einstellungen.json
+    fields:
+      - { name: sektion, label: Name der Sektion, type: string }
+      - { name: beschreibung, label: "Beschreibung für Google (1–2 Sätze)", type: text }
+      - { name: domain, label: Domain, type: string }
+      - { name: email, label: E-Mail, type: string }
+      - { name: telefon, label: Telefon, type: string }
+      - { name: adresse, label: Adresse, type: string }
+      - { name: erreichbarkeit, label: Erreichbarkeit, type: string }
+      - { name: instagram, label: Instagram-Link, type: string }
+      - { name: facebook, label: "Facebook-Link (leer = ausblenden)", type: string }
+      - { name: hero_titel, label: "Startseite: Titel im Bild", type: string }
+      - { name: hero_untertitel, label: "Startseite: Untertitel im Bild", type: string }
+      - { name: hero_bild, label: "Startseite: Bild", type: image }
+      - name: kacheln
+        label: "Startseite: Kacheln «Das Wichtigste auf einen Blick»"
+        type: object
+        list: true
+        fields:
+          - { name: titel, label: Titel, type: string }
+          - { name: button, label: Button-Text, type: string }
+          - { name: link, label: "Link (z.B. /parolen/)", type: string }
+          - name: stil
+            label: Farbe
+            type: select
+            options:
+              values: [gruen, hell]
+      - { name: mitmachen_titel, label: "Mitmachen: Titel", type: string }
+      - { name: mitmachen_text, label: "Mitmachen: Text", type: text }
